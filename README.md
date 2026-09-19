@@ -60,5 +60,4 @@ npm run cli
 
 ---
 
-## 📄 License
-ISC
+
