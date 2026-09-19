@@ -1,4 +1,4 @@
-# 🤖 Coding Instructor AI
+Yu# 🤖 Coding Instructor AI
 
 A simple and powerful AI-powered coding and DSA instructor built with Node.js and Google Gemini.
 
@@ -52,5 +52,3 @@ npm run cli
 
 ---
 
-## 📄 License
-ISC
