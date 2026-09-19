@@ -2,6 +2,8 @@
 
 A simple and powerful AI-powered coding and DSA instructor built with Node.js and Google Gemini.
 
+🌐 **Live Demo**: [https://coding-instructor-1.onrender.com](https://coding-instructor-1.onrender.com/)
+
 ---
 
 ## 🚀 Features
@@ -50,14 +52,5 @@ npm run cli
 
 ---
 
-## 🌐 Deploy to Vercel
-
-1. Import this repository in [Vercel](https://vercel.com/new).
-2. Add the Environment Variable in Vercel project settings:
-   - **Key**: `GEMINI_API_KEY`
-   - **Value**: your Google Gemini API key
-3. Click **Deploy**!
-
----
-
-
+## 📄 License
+ISC
