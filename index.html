@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Instructor </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            --primary: #7e6fff;
+            --primary-dark: #6a5af9;
+            --secondary: #00d4ff;
+            --dark-bg: #121826;
+            --dark-card: #1e293b;
+            --dark-border: #2d3749;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --code-bg: #0f172a;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            width: 100%;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-brand .logo-icon {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(126, 111, 255, 0.3);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--text-primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+
+        /* Dashboard */
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--dark-card);
+            border-radius: 16px;
+            border: 1px solid var(--dark-border);
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--dark-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+
+        .instructions {
+            background: rgba(30, 41, 59, 0.7);
+            border-left: 4px solid var(--primary);
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .instructions i {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-top: 3px;
+        }
+
+        .instructions p {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        textarea#questionInput {
+            width: 100%;
+            padding: 18px;
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            font-size: 16px;
+            min-height: 150px;
+            resize: vertical;
+            transition: var(--transition);
+            background: rgba(30, 41, 59, 0.5);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', monospace;
+        }
+
+        textarea#questionInput:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(126, 111, 255, 0.2);
+        }
+
+        textarea#questionInput::placeholder {
+            color: #64748b;
+        }
+
+        button#askButton {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 18px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(126, 111, 255, 0.3);
+        }
+
+        button#askButton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(126, 111, 255, 0.4);
+        }
+
+        button#askButton:active {
+            transform: translateY(0);
+        }
+
+        button#askButton:disabled {
+            background: #64748b;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+
+        .output-container {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--dark-border);
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        #outputArea {
+            padding: 30px;
+            min-height: 250px;
+            max-height: 600px;
+            overflow-y: auto;
+            line-height: 1.75;
+            font-size: 16px;
+            background: transparent;
+            color: var(--text-primary);
+            white-space: normal;
+        }
+
+        #outputArea::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #outputArea::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 4px;
+        }
+
+        #outputArea::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        #outputArea h1,
+        #outputArea h2,
+        #outputArea h3,
+        #outputArea h4 {
+            font-weight: 700;
+            line-height: 1.35;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        #outputArea h1 {
+            font-size: 1.75rem;
+            color: #ffffff;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 1px solid var(--dark-border);
+            padding-bottom: 0.5rem;
+        }
+
+        #outputArea h2 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            padding-bottom: 0.35rem;
+        }
+
+        #outputArea h3 {
+            font-size: 1.2rem;
+            color: #a5b4fc;
+        }
+
+        #outputArea h4 {
+            font-size: 1.05rem;
+            color: #cbd5e1;
+        }
+
+        #outputArea p {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+            color: #e2e8f0;
+        }
+
+        #outputArea strong {
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        #outputArea em {
+            color: #cbd5e1;
+            font-style: italic;
+        }
+
+        #outputArea ul,
+        #outputArea ol {
+            margin: 0.75rem 0 1.25rem 1.75rem;
+            padding-left: 0.5rem;
+        }
+
+        #outputArea li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+
+        #outputArea li::marker {
+            color: var(--primary);
+        }
+
+        #outputArea hr {
+            border: none;
+            border-top: 1px solid var(--dark-border);
+            margin: 1.75rem 0;
+        }
+
+        #outputArea blockquote {
+            border-left: 4px solid var(--primary);
+            padding: 10px 18px;
+            margin: 1.25rem 0;
+            background: rgba(126, 111, 255, 0.08);
+            border-radius: 0 8px 8px 0;
+            color: #cbd5e1;
+            font-style: italic;
+        }
+
+        #outputArea pre {
+            background: var(--code-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin: 1.25rem 0;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #outputArea pre code {
+            background: transparent;
+            color: #38bdf8;
+            padding: 0;
+            border-radius: 0;
+            font-family: 'Fira Code', Consolas, Monaco, monospace;
+            font-size: 14.5px;
+            line-height: 1.6;
+            display: block;
+            border: none;
+        }
+
+        #outputArea code {
+            background: rgba(126, 111, 255, 0.15);
+            color: #38bdf8;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: 'Fira Code', Consolas, Monaco, monospace;
+            font-size: 14px;
+            border: 1px solid rgba(126, 111, 255, 0.25);
+            display: inline-block;
+            margin: 2px 0;
+        }
+
+        .loading-indicator {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(126, 111, 255, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-message {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid var(--danger);
+            font-weight: 500;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .topics-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            min-height: 42px;
+        }
+
+        .topic-tag {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--dark-border);
+            color: var(--text-primary);
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            max-width: 320px;
+        }
+
+        .topic-tag span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .topic-tag i {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .topic-tag:hover {
+            background: rgba(0, 212, 255, 0.12);
+            border-color: var(--secondary);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);
+        }
+
+        .clear-history-btn {
+            background: transparent;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .clear-history-btn:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: var(--danger);
+            color: #ef4444;
+        }
+
+        .empty-history {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="header-brand">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h1>Coding Instructor AI</h1>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-clock-rotate-left" style="color: var(--secondary);"></i> Recent Questions</h2>
+                    <button class="clear-history-btn" id="clearHistoryBtn" onclick="clearHistory()"
+                        style="display: none;">
+                        <i class="fas fa-trash-alt"></i> Clear History
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="recentQuestionsContainer" class="topics-container">
+                        <!-- Populated dynamically from localStorage -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-question-circle" style="color: var(--secondary);"></i> Ask a Coding Question
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="instructions">
+                        <i class="fas fa-info-circle"></i>
+                        <div>
+                            <p><strong>How to use:</strong> Ask any coding-related question in any programming language.
+                                The AI is specialized to help with coding problems and concepts.</p>
+                            <p>For non-coding questions, responses may be unpredictable!</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="questionInput">
+                            <i class="fas fa-terminal"></i>
+                            Your Coding Question
+                        </label>
+                        <textarea id="questionInput"
+                            placeholder="e.g., Explain closures in JavaScript, How to implement binary search in Python, What is recursion?"></textarea>
+                    </div>
+
+                    <button id="askButton">
+                        <i class="fas fa-paper-plane"></i>
+                        Ask Coding Instructor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-graduation-cap" style="color: var(--success);"></i> Instructor's Response</h2>
+                    <span id="modelBadge" style="font-size: 0.8rem; font-weight: 500; background: rgba(126, 111, 255, 0.2); color: #a5b4fc; border: 1px solid rgba(126, 111, 255, 0.3); padding: 4px 10px; border-radius: 8px; display: none;"></span>
+                </div>
+                <div class="card-body">
+                    <div class="loading-indicator" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p>Analyzing your question and preparing the best explanation...</p>
+                    </div>
+
+                    <div class="output-container">
+                        <div id="outputArea">
+                            <p>Welcome to Coding Instructor AI! I'm here to help you with any programming questions you
+                                have.</p>
+                            <p>Ask me about:</p>
+                            <ul>
+                                <li>Programming concepts (OOP, recursion, closures)</li>
+                                <li>Language-specific questions (JavaScript, Python, Java)</li>
+                                <li>Algorithm explanations</li>
+                                <li>Code debugging</li>
+                                <li>Best practices</li>
+                            </ul>
+                            <p>Try asking: <code>"Explain how promises work in JavaScript"</code> or
+                                <code>"Show me a Python implementation of quicksort"</code>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questionInput = document.getElementById('questionInput');
+        const askButton = document.getElementById('askButton');
+        const outputArea = document.getElementById('outputArea');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+
+        askButton.addEventListener('click', async () => {
+            const question = questionInput.value.trim();
+
+            if (!question) {
+                outputArea.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter a coding question first!</div>';
+                return;
+            }
+
+            saveQuestion(question);
+
+            outputArea.innerHTML = '';
+            loadingIndicator.style.display = 'block';
+            askButton.disabled = true;
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: question }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || `Server Error: ${response.status}`);
+                }
+
+                const answerText = data.answer;
+                const modelBadge = document.getElementById('modelBadge');
+                if (modelBadge && data.model) {
+                    modelBadge.innerHTML = `<i class="fas fa-microchip"></i> ${data.model}`;
+                    modelBadge.style.display = 'inline-flex';
+                    modelBadge.style.alignItems = 'center';
+                    modelBadge.style.gap = '6px';
+                }
+
+                // Format response with full Markdown support
+                if (window.marked && typeof marked.parse === 'function') {
+                    outputArea.innerHTML = marked.parse(answerText);
+                } else {
+                    let html = answerText
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+
+                    html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+                    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+                    html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+                    html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+                    html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+                    html = html.replace(/^\s*---\s*$/gim, '<hr>');
+                    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    html = html.replace(/^\* (.*$)/gim, '<li>$1</li>');
+                    html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
+                    html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
+                    html = html.split('\n\n').map(p => p.trim() ? `<p>${p}</p>` : '').join('');
+                    outputArea.innerHTML = html;
+                }
+            } catch (error) {
+                console.error('Frontend Error:', error);
+                outputArea.innerHTML = `<div class="error-message"><i class="fas fa-bug"></i> Failed to get answer: ${error.message}</div>`;
+            } finally {
+                askButton.disabled = false;
+                loadingIndicator.style.display = 'none';
+            }
+        });
+
+
+        // Allow Enter key (but not Shift+Enter) in textarea to submit
+        questionInput.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                askButton.click();
+            }
+        });
+
+        // ==========================================
+        // Dynamic Recent Questions (localStorage)
+        // ==========================================
+        const STORAGE_KEY = 'coding_instructor_history';
+        const defaultQuestions = [
+            "What is an array?",
+            "What is a Stack and how does LIFO work?",
+            "Explain Time and Space Complexity in DSA",
+            "Explain Recursion with a simple example"
+        ];
+
+        function getHistory() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    if (Array.isArray(parsed)) {
+                        return parsed;
+                    }
+                }
+            } catch (e) {
+                console.error("Error reading localStorage:", e);
+            }
+            return defaultQuestions;
+        }
+
+        function saveQuestion(question) {
+            if (!question) return;
+            try {
+                let history = getHistory();
+                // Remove existing case-insensitive duplicate
+                history = history.filter(q => q.toLowerCase() !== question.toLowerCase());
+                // Prepend newest question
+                history.unshift(question);
+                // Keep max 8 questions
+                if (history.length > 8) history = history.slice(0, 8);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+                renderRecentQuestions();
+            } catch (e) {
+                console.error("Error saving to localStorage:", e);
+            }
+        }
+
+        function clearHistory() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+                renderRecentQuestions();
+            } catch (e) {
+                console.error("Error clearing history:", e);
+            }
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function renderRecentQuestions() {
+            const container = document.getElementById('recentQuestionsContainer');
+            const clearBtn = document.getElementById('clearHistoryBtn');
+            if (!container) return;
+
+            const history = getHistory();
+
+            if (!history || history.length === 0) {
+                container.innerHTML = `<span class="empty-history"><i class="fas fa-info-circle"></i> No recent questions yet. Ask any coding question below!</span>`;
+                if (clearBtn) clearBtn.style.display = 'none';
+                return;
+            }
+
+            if (clearBtn) clearBtn.style.display = 'flex';
+            container.innerHTML = '';
+
+            history.forEach(q => {
+                const btn = document.createElement('button');
+                btn.className = 'topic-tag';
+                btn.title = `Click to re-ask: "${q}"`;
+                const displayText = q.length > 38 ? q.substring(0, 35) + '...' : q;
+                btn.innerHTML = `<i class="fas fa-terminal"></i> <span>${escapeHtml(displayText)}</span>`;
+                btn.addEventListener('click', () => {
+                    questionInput.value = q;
+                    questionInput.focus();
+                    askButton.click(); // Auto-submits the question
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        // Initialize dynamic history on page load
+        renderRecentQuestions();
+
+
+
+    </script>
+</body>
+
+</html>
