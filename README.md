@@ -46,9 +46,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 *(Optional) To run directly in terminal:*
 ```bash
 npm run cli
-```
 
----
-
-## 📄 License
-ISC
