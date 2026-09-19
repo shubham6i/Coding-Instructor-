@@ -2,8 +2,12 @@
   "name": "chatbot",
   "version": "1.0.0",
   "description": "",
-  "main": "Dsa.js",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
+    "build": "echo 'Build complete'",
     "start": "node server.js",
     "dev": "node server.js",
     "cli": "node Dsa.js",
