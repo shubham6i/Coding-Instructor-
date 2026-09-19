@@ -1,62 +1,52 @@
 # 🤖 Coding Instructor AI
 
-An Coding Instructor powered by Google Gemini (`gemini-3.6-flash`).
+A simple and powerful AI-powered coding and DSA instructor built with Node.js and Google Gemini.
 
 ---
 
-## ✨ Features
+## 🚀 Features
 
-- **Specialized DSA Instructor**: Strictly guardrailed via system instructions to provide structured, clear algorithm explanations, complexity analysis ($O(n)$ time/space), and clean code examples.
-- **Dynamic Question History**: Automatically persists your recent questions in browser `localStorage` for fast one-click re-asking.
-- **Full Markdown Rendering**: Formats responses into styled headings, highlighted code blocks (`Fira Code`), custom bullet lists, and horizontal dividers.
-- **Privacy First & Secure**: API keys are configured client-side via `localStorage` or server-side via `.env` and are never committed to version control.
-- **Responsive Dark Mode UI**: Clean, distraction-free aesthetic with fast zero-framework performance.
-
----
-
-## 🚀 Quick Start
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/shubham6i/Coding-Instructor-.git
-cd Coding-Instructor-
-```
-
-### 2. Install dependencies
-```bash
-npm install
-```
-
-### 3. Configure API Key
-Create a `.env` file based on `.env.example`:
-```bash
-cp .env.example .env
-```
-Add your Gemini API Key from [Google AI Studio](https://aistudio.google.com/app/apikey):
-```env
-GEMINI_API_KEY=your_actual_api_key_here
-```
-*(Optional: Provide multiple comma-separated keys for auto-rotation: `GEMINI_API_KEY=key1,key2`)*
-
-### 4. Run the Project
-* **Web Application**:
-  ```bash
-  npm start
-  ```
-  Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-* **CLI Script**:
-  ```bash
-  npm run cli
-  ```
+- **Coding Specialist**: Answers coding and algorithm questions with clear explanations and code examples.
+- **Smart Fallback**: Automatically switches Gemini models if free tier limits are reached so it never stops working.
+- **Question History**: Saves your recent questions in the browser for easy 1-click access.
+- **Modern UI**: Clean, dark-mode interface with syntax-highlighted code.
 
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend**: HTML5, Vanilla CSS3, JavaScript (ES6+), Google Fonts (Inter, Fira Code), Marked.js
-- **Backend**: Pure Node.js (`node:http`, ESM), zero external framework dependencies
-- **AI / LLM**: Google Gemini API via `@google/genai` with automated model fallback (`gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-2.5-flash-lite`, etc.)
-- **Tooling**: Node.js, `dotenv`
+
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Node.js (native HTTP)
+- **AI**: Google Gemini API (`@google/genai`)
+
+---
+
+## 💻 How to Run
+
+### 1. Clone & Install
+```bash
+git clone https://github.com/shubham6i/Coding-Instructor-.git
+cd Coding-Instructor-
+npm install
+```
+
+### 2. Add API Key
+Create a `.env` file in the project root:
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+*(Get a free key from [Google AI Studio](https://aistudio.google.com/app/apikey))*
+
+### 3. Start the Server
+```bash
+npm start
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+*(Optional) To run directly in terminal:*
+```bash
+npm run cli
+```
 
 ---
 
